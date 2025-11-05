@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: mottoni-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_DATABASE=n8n_db_m7xz
+      - DB_POSTGRESDB_HOST=dpg-d4478uq4d50c7385ep6g-a
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_USER=n8n_db_m7xz_user
+      - DB_POSTGRESDB_PASSWORD=CbMdnyf6UoTiHH1bqZyzfTXErduxLm8O
+      - N8N_ENCRYPTION_KEY=MottoniStrongKey!2025
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=Bsmh.?2026
+      - WEBHOOK_URL=https://mottoni.onrender.com
+      - GENERIC_TIMEZONE=Europe/Istanbul
+      - N8N_METRICS=true
+      - N8N_LOG_LEVEL=info
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./workflows:/home/node/.n8n/workflows
+      - ./credentials:/home/node/.n8n/credentials
+
+volumes:
+  n8n_data:

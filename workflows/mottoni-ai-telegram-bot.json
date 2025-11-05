@@ -1,0 +1,84 @@
+{
+  "name": "MOTTONI AI Telegram Bot",
+  "description": "Hafızalı ve öğrenen MOTTONI uzmanı AI bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "id": "telegram-trigger",
+      "name": "Telegram Bot Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [240, 300],
+      "webhookId": "mottoni-ai-bot",
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-credential",
+          "name": "Telegram Bot API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "text",
+        "operation": "message",
+        "model": "gpt-4",
+        "messages": {
+          "messageType": "multipleMessages",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Sen MOTTONI Cold Foil makineleri uzmanısın. Gerçek bir üretici müdürü gibi davranıyorsun.\n\nTEKNİK VERİLER:\n- GEEN 2ND GENERATION: 50x70cm (500kg, 9kw), 70x100cm (650kg, 11kw), 100x140cm (1000kg, 15kw)\n- Hız: 12.000 sayfa/saat\n- Folyo: 100mm-1.200mm\n- Maliyet avantajı: %62 (Sıcak folyo: 1.155€ vs Soğuk folyo: 712€)\n\nCEVAP TARZI: Kısa, teknik, maliyet vurgulu, örnekli"
+            },
+            {
+              "role": "user",
+              "content": "{{ $json.message.text }}"
+            }
+          ]
+        }
+      },
+      "id": "mottoni-ai",
+      "name": "MOTTONI AI",
+      "type": "n8n-nodes-base.openAi",
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Bot Trigger').item.json.message.chat.id }}",
+        "text": "={{ $('MOTTONI AI').item.json.choices[0].message.content }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "telegram-cevap",
+      "name": "Telegram Cevap",
+      "type": "n8n-nodes-base.telegram",
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Telegram Bot Trigger": {
+      "main": [
+        [
+          {
+            "node": "MOTTONI AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MOTTONI AI": {
+      "main": [
+        [
+          {
+            "node": "Telegram Cevap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

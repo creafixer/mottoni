@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: mottoni-n8n
+    env: docker
+    plan: free
+    envVars:
+      - key: DB_TYPE
+        value: postgresdb
+      - key: WEBHOOK_URL
+        value: https://mottoni.onrender.com
+      - key: GENERIC_TIMEZONE
+        value: Europe/Istanbul
+    # ŞİFRELER RENDER DASHBOARD'DA MANUEL AYARLANACAK

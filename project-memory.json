@@ -1,0 +1,60 @@
+{
+  "project": {
+    "name": "Mottoni Automation System",
+    "type": "N8N Workflow Automation",
+    "url": "https://mottoni.onrender.com",
+    "database": "PostgreSQL",
+    "target": "Soğuk Yaldız sistemleri otomasyonu"
+  },
+  "structure": {
+    "workflows": [
+      "AI Teknik Destek",
+      "Email Kampanya Otomasyonu",
+      "Lead Generation",
+      "Otomatik Teklif Sistemi",
+      "Sosyal Medya Otomasyonu",
+      "Telegram AI Asistanı"
+    ],
+    "directories": {
+      "workflows": "./workflows/",
+      "configs": "./configs/",
+      "docs": "./docs/"
+    }
+  },
+  "checkpoints": [
+    {
+      "id": "001",
+      "date": "2025-01-27",
+      "status": "initialized",
+      "description": "Proje hafıza sistemi kuruldu",
+      "next_steps": [
+        "Workflow dizinlerini oluştur",
+        "N8N bağlantısını test et",
+        "İlk workflow'u kur"
+      ]
+    },
+    {
+      "id": "002",
+      "date": "2025-01-27",
+      "status": "analyzed",
+      "description": "Workflow analizi tamamlandı",
+      "findings": {
+        "completed_workflows": 3,
+        "missing_workflows": 3,
+        "api_keys_needed": 6,
+        "ready_for_deployment": false
+      },
+      "next_steps": [
+        "API anahtarlarını yapılandır",
+        "Eksik workflow'ları oluştur",
+        "N8N deployment test et"
+      ]
+    }
+  ],
+  "environment": {
+    "platform": "Render",
+    "docker": true,
+    "webhook_url": "https://mottoni.onrender.com/",
+    "encryption_key": "required"
+  }
+}

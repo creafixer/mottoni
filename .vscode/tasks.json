@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Deploy to Render",
+      "type": "shell",
+      "command": "git add . && git commit -m '${input:commitMessage}' && git push origin main",
+      "group": "build"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "commitMessage",
+      "type": "promptString",
+      "description": "Commit mesajı:"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "workflows": [
+    {
+      "name": "Mottoni Soğuk Yaldız Satış Pipeline",
+      "nodes": [
+        {
+          "type": "email-trigger",
+          "settings": {
+            "credentials": "turbosmtp",
+            "subject-filter": "soğuk yaldız|cold foil|mottoni"
+          }
+        },
+        {
+          "type": "ai-chatgpt", 
+          "settings": {
+            "prompt": "Müşteri soğuk yaldız sistemi mi soruyor? Teknik detayları analiz et."
+          }
+        },
+        {
+          "type": "google-sheets",
+          "settings": {
+            "sheet-id": "mottoni-customers",
+            "action": "append-lead"
+          }
+        }
+      ]
+    }
+  ]
+}
